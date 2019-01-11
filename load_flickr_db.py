@@ -13,5 +13,5 @@ for i in photos:
     data = (i['id'], i['owner'], i['secret'], i['server'], i['farm'], i['title'],
             i['ispublic'], i['isfriend'], i['isfamily'], i['dateadded'], i['ownername'])
     c.execute(
-        f"insert into flickrdb_photo ({columns}) values (?,?,?,?,?,?,?,?,?,?,?)", data)
+        f"insert into flickrdb_fphoto ({columns}) values (?,?,?,?,?,?,?,?,?,?,?)", data)
 conn.commit()
