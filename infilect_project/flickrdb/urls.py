@@ -1,0 +1,12 @@
+from django.urls import path
+from rest_framework.authtoken.views import obtain_auth_token
+from .views import ListGroups
+from .views import Logout
+
+appname = 'flickrdb'
+
+urlpatterns = [
+    path('login/', obtain_auth_token, name = 'login'),
+    path('logout/', Logout.as_view(), name = 'logout'),
+    path('groups/', ListGroups.as_view(), name = 'list_groups'),
+]
