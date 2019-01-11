@@ -1,11 +1,12 @@
 import imp
+import os
+import sys
+import warnings
+
 # opcode is not a virtualenv module, so we can use it to find the stdlib
 # Important! To work on pypy, this must be a module that resides in the
 # lib-python/modified-x.y.z directory
 import opcode
-import os
-import sys
-import warnings
 
 dirname = os.path.dirname
 
@@ -35,7 +36,6 @@ except NameError:
 if sys.platform == "win32":
     from distutils.command.build_ext import build_ext as old_build_ext
 
-
     class build_ext(old_build_ext):
         def finalize_options(self):
             if self.library_dirs is None:
@@ -45,7 +45,6 @@ if sys.platform == "win32":
 
             self.library_dirs.insert(0, os.path.join(sys.real_prefix, "Libs"))
             old_build_ext.finalize_options(self)
-
 
     from distutils.command import build_ext as build_ext_module
 

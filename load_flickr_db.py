@@ -1,5 +1,4 @@
 import sqlite3
-
 import flickrapi
 
 api_key = u'3aad6f4e25e8f7c81bf7866d8517901b'
