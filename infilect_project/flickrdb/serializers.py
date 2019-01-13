@@ -1,4 +1,8 @@
 from rest_framework import serializers
-from .models import FGroup, FPhoto, FUser
+from .models import FPhoto
 
-# class FGroupSerializer(serializers.ModelSerializer):
+class FPhotoSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = FPhoto
+        fields = '__all__'
