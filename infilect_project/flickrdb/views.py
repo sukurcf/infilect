@@ -5,7 +5,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from .models import FGroup
 from .models import FPhoto
-from .serializers import FPhotoSerializer
+from .serializers import FPhotoSerializer, FGroupSerializer, FPhotoIDSerializer
 
 
 class Logout(APIView):
@@ -17,20 +17,17 @@ class Logout(APIView):
 @api_view(['GET'])
 def listgroups(request):
     groups = FGroup.objects.all()
-    groups = [', '.join([i.groupname, i.id, str(i.noofphotos)]) for i in groups]
-    groups = '\n'.join(groups)
-    first_row = 'Groupname, Groupid, No.of photos\n'
-    return HttpResponse(first_row+groups)
+    serializer = FGroupSerializer(groups, many=True)
+    return Response(serializer.data)
 
 @csrf_exempt
 @api_view(['GET'])
 def listphotoids(request, groupid):
     photos = FPhoto.objects.filter(groupid=groupid).values('id')
-    photos = [i['id'] for i in photos]
-    photos = '\n'.join(photos)
+    serializer = FPhotoIDSerializer(photos, many=True)
     if not photos:
         return HttpResponse(f'No photos found with groupid - {groupid}')
-    return HttpResponse(photos)
+    return Response(serializer.data)
 
 @csrf_exempt
 @api_view(['GET'])
