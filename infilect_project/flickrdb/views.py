@@ -1,5 +1,7 @@
 from django.shortcuts import render
+from django.views.decorators.csrf import csrf_exempt
 from knox.auth import TokenAuthentication
+from rest_framework.decorators import api_view
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -11,10 +13,8 @@ class Logout(APIView):
         request.user.auth_token.delete()
         return Response('Logged Out')
 
-class ListGroups(APIView):
-    authentication_classes = (TokenAuthentication, )
-    permission_classes = (IsAuthenticated, )
+@csrf_exempt
+@api_view(['GET'])
+def listgroups(request):
 
-    def get(self, request, format = None):
-        resp = FPhoto.objects.all().values('groupid').distinct()
-        return Response(resp)
+    return Response('Hello')
