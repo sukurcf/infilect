@@ -1,6 +1,8 @@
+
+"""This file is used for populating sqlite3 db with photos Data and group Data"""
+
 import sqlite3
 import time
-
 import flickrapi
 import requests
 import urllib

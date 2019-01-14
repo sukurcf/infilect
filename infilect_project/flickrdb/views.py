@@ -7,12 +7,13 @@ from .models import FGroup
 from .models import FPhoto
 from .serializers import FPhotoSerializer, FGroupSerializer, FPhotoIDSerializer
 
-
+# /api/v1/logout
 class Logout(APIView):
     def get(self, request):
         request.user.auth_token.delete()
         return Response('Logged Out')
 
+# /api/v1/groups/
 @csrf_exempt
 @api_view(['GET'])
 def listgroups(request):
@@ -20,6 +21,7 @@ def listgroups(request):
     serializer = FGroupSerializer(groups, many=True)
     return Response(serializer.data)
 
+# /api/v1/group/<ID>
 @csrf_exempt
 @api_view(['GET'])
 def listphotoids(request, groupid):
@@ -29,6 +31,7 @@ def listphotoids(request, groupid):
         return HttpResponse(f'No photos found with groupid - {groupid}')
     return Response(serializer.data)
 
+# /api/v1/photos/?group=<ID>
 @csrf_exempt
 @api_view(['GET'])
 def listphotos(request):
@@ -37,6 +40,7 @@ def listphotos(request):
     serializer = FPhotoSerializer(photos, many=True)
     return Response(serializer.data)
 
+# /api/v1/photos/<ID>
 @csrf_exempt
 @api_view(['GET'])
 def photoinfo(request, photoid):
