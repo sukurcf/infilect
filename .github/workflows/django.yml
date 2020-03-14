@@ -16,8 +16,8 @@ jobs:
         python-version: [3.7]
 
     steps:
-    - uses: actions/checkout@v2
     - name: Print secrets
+    - uses: actions/checkout@v2
       with: # Set the secret as an input
         super_secret: ${{ secrets.secret1 }}
           echo $super_secret
